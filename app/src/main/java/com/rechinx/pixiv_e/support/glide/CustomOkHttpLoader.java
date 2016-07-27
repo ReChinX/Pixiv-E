@@ -1,14 +1,12 @@
-package com.rechinx.pixiv_e.support;
+package com.rechinx.pixiv_e.support.glide;
 
 import android.content.Context;
 
-import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.data.DataFetcher;
 import com.bumptech.glide.load.model.GenericLoaderFactory;
 import com.bumptech.glide.load.model.GlideUrl;
 import com.bumptech.glide.load.model.ModelLoader;
 import com.bumptech.glide.load.model.ModelLoaderFactory;
-import com.bumptech.glide.load.model.file_descriptor.FileDescriptorFileLoader;
 
 import java.io.InputStream;
 

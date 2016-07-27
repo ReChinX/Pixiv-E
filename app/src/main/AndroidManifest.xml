@@ -5,7 +5,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <meta-data
-        android:name="com.rechinx.pixiv_e.support.CustomGlideModule"
+        android:name="com.rechinx.pixiv_e.support.glide.CustomGlideModule"
         android:value="GlideModule" />
 
     <application
@@ -28,6 +28,21 @@
         <activity
             android:name=".activity.SingleWorkActivity"
             android:label="@string/title_activity_single_work"
+            android:theme="@style/Theme.App.Light" />
+        <activity
+            android:name=".activity.WorkDetailsActivity"
+            android:label="@string/title_activity_work_details"
+            android:theme="@style/Theme.App.Light" />
+        <activity
+            android:name=".activity.SettingsActivity"
+            android:label="@string/title_activity_settings" />
+        <activity
+            android:name=".activity.FollowingActivity"
+            android:label="@string/title_activity_collection"
+            android:theme="@style/Theme.App.Light" />
+        <activity
+            android:name=".activity.FavoriteActivity"
+            android:label="@string/title_activity_favorite"
             android:theme="@style/Theme.App.Light"></activity>
     </application>
 

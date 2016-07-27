@@ -8,6 +8,8 @@ import android.os.Parcelable;
  */
 public class ProfileImageUrlsModel implements Parcelable {
 
+    public String px_16x16;
+
     public String px_170x170;
 
     public String px_50x50;
@@ -28,6 +30,17 @@ public class ProfileImageUrlsModel implements Parcelable {
         this.px_50x50 = px_50x50;
     }
 
+    public String getPx_16x16() {
+        return px_16x16;
+    }
+
+    public void setPx_16x16(String px_16x16) {
+        this.px_16x16 = px_16x16;
+    }
+
+    public ProfileImageUrlsModel() {
+    }
+
 
     @Override
     public int describeContents() {
@@ -36,19 +49,18 @@ public class ProfileImageUrlsModel implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.px_16x16);
         dest.writeString(this.px_170x170);
         dest.writeString(this.px_50x50);
     }
 
-    public ProfileImageUrlsModel() {
-    }
-
     protected ProfileImageUrlsModel(Parcel in) {
+        this.px_16x16 = in.readString();
         this.px_170x170 = in.readString();
         this.px_50x50 = in.readString();
     }
 
-    public static final Parcelable.Creator<ProfileImageUrlsModel> CREATOR = new Parcelable.Creator<ProfileImageUrlsModel>() {
+    public static final Creator<ProfileImageUrlsModel> CREATOR = new Creator<ProfileImageUrlsModel>() {
         @Override
         public ProfileImageUrlsModel createFromParcel(Parcel source) {
             return new ProfileImageUrlsModel(source);

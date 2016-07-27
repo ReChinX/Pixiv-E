@@ -12,10 +12,12 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 import com.rechinx.pixiv_e.R;
 import com.rechinx.pixiv_e.activity.HomeActivity;
 import com.rechinx.pixiv_e.activity.SingleWorkActivity;
+import com.rechinx.pixiv_e.activity.WorkDetailsActivity;
 import com.rechinx.pixiv_e.api.WorksApi;
 import com.rechinx.pixiv_e.fragment.RankFragment;
 import com.rechinx.pixiv_e.fragment.RankFragment.OnFragmentInteractionListener;
@@ -63,14 +65,14 @@ public class WorkAdapter extends RecyclerView.Adapter<WorkAdapter.ViewHolder> {
         final WorkModel work = mWorks.get(position).getWork();
         ImageUrlsModel imageUrlsModel = work.image_urls;
 
-        Picasso.with(mContext).load(imageUrlsModel.px_128x128).into(holder.mImage);
+        Glide.with(mContext).load(imageUrlsModel.px_128x128).into(holder.mImage);
         holder.mName.setText(work.getTitle());
 
         holder.mImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent();
-                intent.setClass(mContext, SingleWorkActivity.class);
+                intent.setClass(mContext, WorkDetailsActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putInt("illust_id", work.getId());
                 intent.putExtras(bundle);

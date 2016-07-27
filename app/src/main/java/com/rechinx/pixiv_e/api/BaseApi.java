@@ -27,17 +27,17 @@ public class BaseApi {
         try {
 
             JSONObject jsonObject = new JSONObject(result);
-            JSONObject jsonObject1= jsonObject.getJSONObject("response");
+            JSONObject jsonObject1 = jsonObject.getJSONObject("response");
+            JSONObject jsonObject2 = jsonObject1.getJSONObject("user");
             String access_token = jsonObject1.getString("access_token");
-            if(settingProvider.getString("access_token", null) == null) {
+            String id = jsonObject2.getString("id");
+            if(settingProvider.getString("access_token", null) == null || settingProvider.getString("id", null) == null) {
                 settingProvider.putString("access_token", access_token);
+                settingProvider.putString("id", id);
             }
-
-            Log.d("FFFFFFFFFFF", settingProvider.getString("access_token", null));
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
 
     }
 
@@ -70,4 +70,8 @@ public class BaseApi {
         return settingProvider.getString("access_token", null);
     }
 
+    public static String getId(Context context) {
+        SettingProvider settingProvider = SettingProvider.getInstance(context);
+        return settingProvider.getString("id", null);
+    }
 }

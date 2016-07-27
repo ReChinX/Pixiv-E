@@ -1,4 +1,4 @@
-package com.rechinx.pixiv_e.support;
+package com.rechinx.pixiv_e.support.glide;
 
 import com.bumptech.glide.Priority;
 import com.bumptech.glide.load.data.DataFetcher;
@@ -38,7 +38,6 @@ public class OkHttpStreamFetcher implements DataFetcher<InputStream> {
             requestBuilder.addHeader(key, headerEntry.getValue());
         }
 
-        requestBuilder.addHeader("User-Agent", "Mozilla/5.0 (Windows NT 10.0; WOW64; rv:47.0) Gecko/20100101 Firefox/47.0");
         Request request = requestBuilder.build();
 
         Response response = client.newCall(request).execute();

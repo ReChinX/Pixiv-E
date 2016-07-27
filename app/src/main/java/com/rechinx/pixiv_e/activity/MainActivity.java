@@ -36,9 +36,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // test code
+        new LoginTask().execute("usersp", "passsp");
+
         settingProvider = SettingProvider.getInstance(this);
 
-        if(settingProvider.getString("access_token", null) != null) {
+        /*if(settingProvider.getString("access_token", null) != null) {
             Intent intent = new Intent();
             intent.setAction(Intent.ACTION_MAIN);
             intent.setClass(this, HomeActivity.class);
@@ -70,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                 new LoginTask().execute(user_name.getText().toString(), user_passwd.getText().toString());
             }
-        });
+        });*/
     }
 
     private class LoginTask extends AsyncTask<String, Void, Boolean> {

@@ -1,4 +1,4 @@
-package com.rechinx.pixiv_e.support;
+package com.rechinx.pixiv_e.support.glide;
 
 import android.content.Context;
 

@@ -2,13 +2,8 @@ package com.rechinx.pixiv_e.activity;
 
 import android.content.Intent;
 import android.content.res.TypedArray;
-import android.graphics.Bitmap;
-import android.graphics.Color;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.TypedValue;
@@ -30,10 +25,7 @@ import com.nineoldandroids.view.ViewHelper;
 import com.rechinx.pixiv_e.R;
 import com.rechinx.pixiv_e.api.WorksApi;
 import com.rechinx.pixiv_e.model.WorkModel;
-import com.rechinx.pixiv_e.model.WorksModel;
-import com.rechinx.pixiv_e.support.CustomGlideModule;
-import com.squareup.picasso.Picasso;
-import com.squareup.picasso.Target;
+import com.rechinx.pixiv_e.support.Utility;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -52,7 +44,9 @@ public class SingleWorkActivity extends AppCompatActivity implements ObservableS
     private View mOverlayView;
     private ObservableScrollView mScrollView;
     private TextView mTitleView;
-    private TextView mDescriptionView;
+    private TextView mName;
+    private TextView mAuthorName;
+    private ImageView mAuthorImage;
     private View mFab;
     private int mActionBarSize;
     private int mFlexibleSpaceShowFabOffset;
@@ -84,7 +78,9 @@ public class SingleWorkActivity extends AppCompatActivity implements ObservableS
         mScrollView = (ObservableScrollView) findViewById(R.id.scroll);
         mScrollView.setScrollViewCallbacks(this);
         mTitleView = (TextView) findViewById(R.id.title);
-        mDescriptionView = (TextView) findViewById(R.id.work_description);
+        mName = (TextView) findViewById(R.id.work_name);
+        mAuthorName = (TextView) findViewById(R.id.work_author_name);
+        mAuthorImage = (ImageView) findViewById(R.id.author_image);
         mTitleView.setText(getTitle());
         setTitle(null);
 
@@ -113,7 +109,9 @@ public class SingleWorkActivity extends AppCompatActivity implements ObservableS
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
+        switch (id){
+            case android.R.id.home: onBackPressed();break;
+        }
         //noinspection SimplifiableIfStatement
 
         return super.onOptionsItemSelected(item);
@@ -205,18 +203,10 @@ public class SingleWorkActivity extends AppCompatActivity implements ObservableS
         @Override
         protected void onPostExecute(WorkModel workModel) {
             super.onPostExecute(workModel);
-            GlideUrl glideUrl = new GlideUrl(workModel.getImage_urls().getMedium(),
-                    new LazyHeaders.Builder()
-                            .addHeader("Referer", "http://spapi.pixiv.net/")
-                            .addHeader("Accept-Language", "zh-cn")
-                            .addHeader("Proxy-Connection", "keep-alive")
-                            .addHeader("Connection", "keep-alive")
-                            .addHeader("Accept-Encoding", "gzip, deflate")
-                            .build());
-            Glide.with(SingleWorkActivity.this).load(glideUrl).into(mImageView);
-
-            mTitleView.setText(workModel.getTitle());
-            mDescriptionView.setText(workModel.getCaption());
+            Glide.with(SingleWorkActivity.this).load(Utility.constructGlideUrl(workModel.getImage_urls().getMedium())).into(mImageView);
+            mName.setText(workModel.getTitle());
+            mAuthorName.setText(workModel.getUser().getName());
+            Glide.with(SingleWorkActivity.this).load(Utility.constructGlideUrl(workModel.getUser().getProfile_image_urls().getPx_50x50())).into(mAuthorImage);
         }
     }
 
