@@ -16,10 +16,10 @@ public class MeFollowingApi {
     private static final String referer = "http://spapi.pixiv-app.net/";
     private static final String user_agent = "PixivIOSApp/5.6.0";
 
-    public static String meFollowing(int page, int per_pages, String publicity, Context context) throws IOException {
+    public static String meFollowing(String page, String per_pages, String publicity, Context context) throws IOException {
         Params params = new Params();
-        params.put("page", page+"");
-        params.put("per_page", per_pages+"");
+        params.put("page", page);
+        params.put("per_page", per_pages);
         params.put("publicity", publicity);
 
         String send = params.encode();

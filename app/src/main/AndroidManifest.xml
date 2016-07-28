@@ -26,10 +26,6 @@
             android:label="@string/title_activity_home"
             android:theme="@style/Theme.App.Light" />
         <activity
-            android:name=".activity.SingleWorkActivity"
-            android:label="@string/title_activity_single_work"
-            android:theme="@style/Theme.App.Light" />
-        <activity
             android:name=".activity.WorkDetailsActivity"
             android:label="@string/title_activity_work_details"
             android:theme="@style/Theme.App.Light" />

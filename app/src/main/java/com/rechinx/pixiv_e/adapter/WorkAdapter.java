@@ -2,10 +2,8 @@ package com.rechinx.pixiv_e.adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,25 +11,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.google.gson.Gson;
 import com.rechinx.pixiv_e.R;
-import com.rechinx.pixiv_e.activity.HomeActivity;
-import com.rechinx.pixiv_e.activity.SingleWorkActivity;
 import com.rechinx.pixiv_e.activity.WorkDetailsActivity;
-import com.rechinx.pixiv_e.api.WorksApi;
-import com.rechinx.pixiv_e.fragment.RankFragment;
 import com.rechinx.pixiv_e.fragment.RankFragment.OnFragmentInteractionListener;
 import com.rechinx.pixiv_e.model.ImageUrlsModel;
-import com.rechinx.pixiv_e.model.UserModel;
 import com.rechinx.pixiv_e.model.WorkModel;
 import com.rechinx.pixiv_e.model.WorksModel;
-import com.squareup.picasso.Picasso;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.IOException;
 import java.util.List;
 
 
