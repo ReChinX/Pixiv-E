@@ -21,4 +21,7 @@ public class Utility {
         return glideUrl;
     }
 
+    public static boolean isTokenExpired(long time) {
+        return time < System.currentTimeMillis();
+    }
 }

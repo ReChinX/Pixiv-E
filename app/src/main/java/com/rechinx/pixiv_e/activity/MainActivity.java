@@ -1,6 +1,7 @@
 package com.rechinx.pixiv_e.activity;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -18,6 +19,7 @@ import android.widget.Toast;
 import com.rechinx.pixiv_e.R;
 import com.rechinx.pixiv_e.api.BaseApi;
 import com.rechinx.pixiv_e.support.SettingProvider;
+import com.rechinx.pixiv_e.support.Utility;
 
 import java.io.IOException;
 
@@ -36,12 +38,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // test code
-        new LoginTask().execute("usersp", "passsp");
-
         settingProvider = SettingProvider.getInstance(this);
 
-        /*if(settingProvider.getString("access_token", null) != null) {
+        if(!needLogin(this)) {
             Intent intent = new Intent();
             intent.setAction(Intent.ACTION_MAIN);
             intent.setClass(this, HomeActivity.class);
@@ -73,7 +72,11 @@ public class MainActivity extends AppCompatActivity {
                 }
                 new LoginTask().execute(user_name.getText().toString(), user_passwd.getText().toString());
             }
-        });*/
+        });
+    }
+
+    private boolean needLogin(Context context) {
+        return BaseApi.getAccessToken(context) == null || Utility.isTokenExpired(BaseApi.getExpireDate(context));
     }
 
     private class LoginTask extends AsyncTask<String, Void, Boolean> {

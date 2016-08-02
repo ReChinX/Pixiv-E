@@ -31,9 +31,16 @@ public class BaseApi {
             JSONObject jsonObject2 = jsonObject1.getJSONObject("user");
             String access_token = jsonObject1.getString("access_token");
             String id = jsonObject2.getString("id");
-            if(settingProvider.getString("access_token", null) == null || settingProvider.getString("id", null) == null) {
+            long expire = jsonObject1.getLong("expires_in");
+            if(settingProvider.getString("access_token", null) == null ) {
                 settingProvider.putString("access_token", access_token);
+
+            }
+            if(settingProvider.getString("id", null) == null) {
                 settingProvider.putString("id", id);
+            }
+            if(settingProvider.getLong("expires_in", Long.MIN_VALUE) == Long.MIN_VALUE) {
+                settingProvider.putLong("expires_in", expire);
             }
         } catch (JSONException e) {
             e.printStackTrace();
@@ -73,5 +80,10 @@ public class BaseApi {
     public static String getId(Context context) {
         SettingProvider settingProvider = SettingProvider.getInstance(context);
         return settingProvider.getString("id", null);
+    }
+
+    public static long getExpireDate(Context context) {
+        SettingProvider settingProvider = SettingProvider.getInstance(context);
+        return System.currentTimeMillis() + Long.valueOf(settingProvider.getLong("expires_in", Long.MIN_VALUE)) * 1000;
     }
 }

@@ -52,4 +52,12 @@ public class SettingProvider {
         return sharedPreferences.getString(key, defValue);
     }
 
+    public SettingProvider putLong(String key, long value) {
+        sharedPreferences.edit().putLong(key, value).commit();
+        return this;
+    }
+
+    public long getLong(String key, long defValue) {
+        return sharedPreferences.getLong(key, defValue);
+    }
 }
