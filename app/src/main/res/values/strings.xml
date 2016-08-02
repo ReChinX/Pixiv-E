@@ -169,4 +169,5 @@
     <string name="title_activity_collection">CollectionActivity</string>
     <string name="section_format">Hello World from section: %1$d</string>
     <string name="title_activity_favorite">FavoriteActivity</string>
+    <string name="title_activity_photo_view_details">PhotoViewDetailsActivity</string>
 </resources>

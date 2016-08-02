@@ -9,30 +9,97 @@
     tools:showIn="@layout/activity_work_details">
 
     <LinearLayout
-        android:orientation="horizontal"
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/single_work_details_author">
+        android:layout_height="match_parent">
 
-        <ImageView
-            android:id="@+id/author_image"
-            android:layout_width="@dimen/single_work_details_author_image_width"
-            android:layout_height="match_parent" />
         <LinearLayout
-            android:orientation="vertical"
+            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-            <TextView
-                android:id="@+id/work_name"
+            android:layout_height="@dimen/single_work_details_author">
+
+            <ImageView
+                android:id="@+id/author_image"
+                android:layout_width="@dimen/single_work_details_author_image_width"
+                android:layout_height="match_parent" />
+            <LinearLayout
+                android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge" />
-            <TextView
-                android:id="@+id/work_author_name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="match_parent">
+                <TextView
+                    android:id="@+id/work_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceLarge" />
+                <TextView
+                    android:id="@+id/work_author_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
 
         </LinearLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/spaces_padding_top">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/work_description"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/spaces_padding_top"
+            android:orientation="horizontal">
+
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:src="@drawable/view_black_small"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:id="@+id/work_viewed_count"/>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:paddingLeft="@dimen/spaces_padding_top"
+                android:src="@drawable/like_black_small"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:id="@+id/work_liked_count"/>
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:paddingTop="@dimen/spaces_padding_top"
+            android:id="@+id/work_informations"/>
+
+        <com.zhy.view.flowlayout.TagFlowLayout
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:paddingTop="@dimen/spaces_padding_top"
+            app:max_select="1"
+            android:id="@+id/taglayout">
+
+        </com.zhy.view.flowlayout.TagFlowLayout>
+
     </LinearLayout>
+
+
 
 </android.support.v4.widget.NestedScrollView>

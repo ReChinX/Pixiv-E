@@ -9,6 +9,8 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -21,12 +23,17 @@ import com.rechinx.pixiv_e.api.WorksApi;
 import com.rechinx.pixiv_e.listener.AppBarStateChangeListener;
 import com.rechinx.pixiv_e.model.WorkModel;
 import com.rechinx.pixiv_e.support.Utility;
+import com.zhy.view.flowlayout.FlowLayout;
+import com.zhy.view.flowlayout.TagAdapter;
+import com.zhy.view.flowlayout.TagFlowLayout;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import java.io.IOException;
+import java.util.zip.Inflater;
 
 public class WorkDetailsActivity extends AppCompatActivity {
 
@@ -42,7 +49,12 @@ public class WorkDetailsActivity extends AppCompatActivity {
     private ImageView mMediumImage;
     private TextView mName;
     private TextView mAuthorName;
+    private TextView mDescription;
+    private TextView mViewed;
+    private TextView mLiked;
+    private TextView mInformations;
     private ImageView mAuthorImage;
+    private TagFlowLayout mTags;
     private int illust_id;
     private String work_name;
 
@@ -64,7 +76,12 @@ public class WorkDetailsActivity extends AppCompatActivity {
         mAppBarLayout = (AppBarLayout) findViewById(R.id.app_bar_layout);
         mName = (TextView) findViewById(R.id.work_name);
         mAuthorName = (TextView) findViewById(R.id.work_author_name);
+        mDescription = (TextView) findViewById(R.id.work_description);
+        mViewed = (TextView) findViewById(R.id.work_viewed_count);
+        mLiked = (TextView) findViewById(R.id.work_liked_count);
+        mInformations = (TextView) findViewById(R.id.work_informations);
         mAuthorImage = (ImageView) findViewById(R.id.author_image);
+        mTags = (TagFlowLayout) findViewById(R.id.taglayout);
         mCollapsingToolbarLayout.setTitle("");
         setTitle(null);
 
@@ -105,6 +122,7 @@ public class WorkDetailsActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+
     }
 
     @Override
@@ -138,13 +156,39 @@ public class WorkDetailsActivity extends AppCompatActivity {
         }
 
         @Override
-        protected void onPostExecute(WorkModel workModel) {
+        protected void onPostExecute(final WorkModel workModel) {
             super.onPostExecute(workModel);
             Glide.with(WorkDetailsActivity.this).load(Utility.constructGlideUrl(workModel.getImage_urls().getMedium())).into(mMediumImage);
             work_name = workModel.getTitle();
             mName.setText(workModel.getTitle());
             mAuthorName.setText(workModel.getUser().getName());
             Glide.with(WorkDetailsActivity.this).load(Utility.constructGlideUrl(workModel.getUser().getProfile_image_urls().getPx_50x50())).into(mAuthorImage);
+            mDescription.setText(workModel.getCaption());
+            mViewed.setText(workModel.getStats().getViews_count() + "");
+            mLiked.setText(workModel.getStats().getFavorited_count().getPublic_int() + workModel.getStats().getFavorited_count().getPrivate_int() + "");
+            mInformations.setText(workModel.getReuploaded_time());
+
+            mTags.setAdapter(new TagAdapter<String>(workModel.getTags()) {
+                @Override
+                public View getView(FlowLayout parent, int position, String s) {
+                    TextView textView = (TextView) LayoutInflater.from(WorkDetailsActivity.this).inflate(R.layout.content_tags, mTags, false);
+                    textView.setText(s);
+                    return textView;
+                }
+
+            });
+
+            mMediumImage.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent();
+                    intent.setClass(WorkDetailsActivity.this, PhotoViewDetailsActivity.class);
+                    intent.setAction(Intent.ACTION_MAIN);
+                    intent.putExtra("url", workModel.getImage_urls().getLarge());
+                    intent.putExtra("title", workModel.getTitle());
+                    startActivity(intent);
+                }
+            });
         }
     }
 }

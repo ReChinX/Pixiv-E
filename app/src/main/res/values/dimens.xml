@@ -12,4 +12,5 @@
     <dimen name="single_work_details_author">60dp</dimen>
     <dimen name="single_work_details_author_image_width">60dp</dimen>
     <dimen name="appbar_padding_top">8dp</dimen>
+    <dimen name="spaces_padding_top">30dp</dimen>
 </resources>

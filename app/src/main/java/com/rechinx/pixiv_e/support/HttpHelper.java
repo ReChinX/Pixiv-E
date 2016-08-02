@@ -1,8 +1,11 @@
 package com.rechinx.pixiv_e.support;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.util.Log;
 
 import java.io.IOException;
+import java.io.InputStream;
 
 import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
@@ -62,5 +65,30 @@ public class HttpHelper {
         }
 
         return resutl;
+    }
+
+    public static Bitmap getBitmap(String url) throws IOException {
+        Bitmap bitmap = null;
+        Response response = null;
+        OkHttpClient okHttpClient = new OkHttpClient();
+
+        Request request = new Request.Builder().url(url)
+                .addHeader("Referer", "http://spapi.pixiv.net/")
+                .addHeader("Accept-Language", "zh-cn")
+                .addHeader("Proxy-Connection", "keep-alive")
+                .addHeader("Connection", "keep-alive")
+                .addHeader("Accept-Encoding", "gzip, deflate")
+                .addHeader("User-Agent", "Mozilla/5.0 (Windows NT 10.0; WOW64; rv:47.0) Gecko/20100101 Firefox/47.0")
+                .build();
+
+        response = okHttpClient.newCall(request).execute();
+        if(response.isSuccessful()) {
+            InputStream is = response.body().byteStream();
+            bitmap = BitmapFactory.decodeStream(is);
+        }else{
+            Log.e(TAG, " " + response.code());
+        }
+
+        return bitmap;
     }
 }

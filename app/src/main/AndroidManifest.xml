@@ -39,6 +39,10 @@
         <activity
             android:name=".activity.FavoriteActivity"
             android:label="@string/title_activity_favorite"
+            android:theme="@style/Theme.App.Light" />
+        <activity
+            android:name=".activity.PhotoViewDetailsActivity"
+            android:label="@string/title_activity_photo_view_details"
             android:theme="@style/Theme.App.Light"></activity>
     </application>
 
